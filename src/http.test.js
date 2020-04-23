@@ -32,3 +32,90 @@ test('incorrect login returns false', async () => {
   const login = await session.login('secret-id', 'wrong-password');
   expect(login).toBeFalsy();
 });
+
+test('getAll() supports pagination', async () => {
+  nock('https://fake.api')
+    .get('/api/')
+    .basicAuth({ user: 'secret-id', pass: 'secret-password' })
+    .reply(200)
+    .get('/api/things/')
+    .basicAuth({ user: 'secret-id', pass: 'secret-password' })
+    .reply(200, {
+      count: 3,
+      next: 'https://fake.api/api/things/?page=2',
+      previous: null,
+      results: [{ one: 1 }],
+    })
+    .get('/api/things/')
+    .basicAuth({ user: 'secret-id', pass: 'secret-password' })
+    .query({ page: 2 })
+    .reply(200, {
+      count: 3,
+      next: 'https://fake.api/api/things/?page=3',
+      previous: 'https://fake.api/api/things/?page=1',
+      results: [{ two: 2 }],
+    })
+    .get('/api/things/')
+    .basicAuth({ user: 'secret-id', pass: 'secret-password' })
+    .query({ page: 3 })
+    .reply(200, {
+      count: 3,
+      next: null,
+      previous: 'https://fake.api/api/things/?page=2',
+      results: [{ three: 3 }],
+    });
+
+  const session = new APISession('https://fake.api');
+  await session.login('secret-id', 'secret-password');
+
+  const result = [];
+  // eslint-disable-next-line no-restricted-syntax
+  for await (const r of session.getAll('/api/things/')) {
+    result.push(r);
+  }
+  expect(result.length).toBe(3);
+  expect(result).toEqual([{ one: 1 }, { two: 2 }, { three: 3 }]);
+});
+
+test('list obeys limit', async () => {
+  nock('https://fake.api')
+    .get('/api/')
+    .basicAuth({ user: 'secret-id', pass: 'secret-password' })
+    .reply(200)
+    .get('/api/things/')
+    .basicAuth({ user: 'secret-id', pass: 'secret-password' })
+    .reply(200, {
+      count: 3,
+      next: 'https://fake.api/api/things/?page=2',
+      previous: null,
+      results: [{ one: 1 }],
+    })
+    .get('/api/things/')
+    .basicAuth({ user: 'secret-id', pass: 'secret-password' })
+    .query({ page: 2 })
+    .reply(200, {
+      count: 3,
+      next: 'https://fake.api/api/things/?page=3',
+      previous: 'https://fake.api/api/things/?page=1',
+      results: [{ two: 2 }],
+    });
+
+  const scope = nock('https://fake.api')
+    .get('/api/things/')
+    .basicAuth({ user: 'secret-id', pass: 'secret-password' })
+    .query({ page: 3 })
+    .reply(200, {
+      count: 3,
+      next: null,
+      previous: 'https://fake.api/api/things/?page=2',
+      results: [{ three: 3 }],
+    });
+
+  const session = new APISession('https://fake.api');
+  await session.login('secret-id', 'secret-password');
+
+  const result = await session.list('/api/things/', 2);
+
+  expect(result).toEqual([{ one: 1 }, { two: 2 }]);
+  expect(scope.isDone()).toBeFalsy();
+});

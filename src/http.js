@@ -31,6 +31,31 @@ class APISession {
     this.session.defaults.auth = auth;
     return true;
   }
+
+  async* getAll(url) {
+    const { data: { results, next } } = await this.session.get(url);
+
+    // eslint-disable-next-line no-restricted-syntax
+    for (const item of results) {
+      yield item;
+    }
+
+    if (next) {
+      yield* this.getAll(next);
+    }
+  }
+
+  async list(url, limit = 100) {
+    const results = [];
+    const generator = await this.getAll(url);
+    for (let index = 0; index < limit; index += 1) {
+      // eslint-disable-next-line no-await-in-loop
+      const next = await generator.next();
+      if (next.done) { break; }
+      results.push(next.value);
+    }
+    return results;
+  }
 }
 
 export default APISession;
