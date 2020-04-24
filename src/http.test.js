@@ -2,104 +2,141 @@ import nock from 'nock';
 import APISession from './http';
 import RequestError from './exceptions';
 
-test('can login', async () => {
-  const scope = nock('https://fake.api', {
-    reqheaders: {
-      'user-agent': (headerValue) => headerValue.includes('belvo-js'),
-    },
-  })
-    .get('/api/')
-    .basicAuth({ user: 'secret-id', pass: 'secret-password' })
-    .reply(200);
 
-  const session = new APISession('https://fake.api');
-  const login = await session.login('secret-id', 'secret-password');
-  scope.isDone();
-  expect(login).toBeTruthy();
+class Mocker {
+  constructor(url) {
+    this.scope = nock(url, {
+      reqheaders: {
+        'user-agent': (headerValue) => headerValue.includes('belvo-js'),
+      },
+    });
+  }
+
+  login() {
+    this.scope.get('/api/')
+      .basicAuth({ user: 'secret-id', pass: 'secret-password' })
+      .reply(200);
+    return this;
+  }
+
+  addThingsPageOne() {
+    this.scope
+      .get('/api/things/')
+      .basicAuth({ user: 'secret-id', pass: 'secret-password' })
+      .reply(200, {
+        count: 3,
+        next: 'https://fake.api/api/things/?page=2',
+        previous: null,
+        results: [{ one: 1 }],
+      });
+    return this;
+  }
+
+  addThingsPageTwo() {
+    this.scope
+      .get('/api/things/')
+      .basicAuth({ user: 'secret-id', pass: 'secret-password' })
+      .query({ page: 2 })
+      .reply(200, {
+        count: 3,
+        next: 'https://fake.api/api/things/?page=3',
+        previous: 'https://fake.api/api/things/?page=1',
+        results: [{ two: 2 }],
+      });
+    return this;
+  }
+
+  addThingsPageThree() {
+    this.scope
+      .get('/api/things/')
+      .basicAuth({ user: 'secret-id', pass: 'secret-password' })
+      .query({ page: 3 })
+      .reply(200, {
+        count: 3,
+        next: null,
+        previous: 'https://fake.api/api/things/?page=2',
+        results: [{ three: 3 }],
+      });
+    return this;
+  }
+
+  replyWithPaginatedThings() {
+    this.addThingsPageOne().addThingsPageTwo().addThingsPageThree();
+    return this;
+  }
+
+  replyToPostThings(replyCode, replyWith) {
+    this.scope
+      .post('/api/things/', { foo: 'bar' })
+      .basicAuth({ user: 'secret-id', pass: 'secret-password' })
+      .reply(replyCode, replyWith);
+    return this;
+  }
+
+  replyToDeleteThings(replyCode) {
+    this.scope
+      .delete('/api/things/666/')
+      .basicAuth({ user: 'secret-id', pass: 'secret-password' })
+      .reply(replyCode);
+    return this;
+  }
+
+  replyToGetThing(replyCode, replyWith = null) {
+    this.scope
+      .get('/api/things/666/')
+      .basicAuth({ user: 'secret-id', pass: 'secret-password' })
+      .reply(replyCode, replyWith);
+    return this;
+  }
+}
+
+const mocker = new Mocker('https://fake.api');
+
+const newSession = async () => {
+  const apiSession = new APISession('https://fake.api');
+  await apiSession.login('secret-id', 'secret-password');
+  return apiSession;
+};
+
+
+beforeEach(async () => {
+  nock.cleanAll();
+});
+
+test('can login', async () => {
+  mocker.login();
+
+  const session = await newSession();
+  expect(session).toBeTruthy();
+  expect(mocker.scope.isDone()).toBeTruthy();
 });
 
 test('incorrect login returns false', async () => {
-  nock('https://fake.api', {
-    reqheaders: {
-      'user-agent': (headerValue) => headerValue.includes('belvo-js'),
-    },
-  })
-    .get('/api/')
-    .basicAuth({ user: 'secret-id', pass: 'secret-password' });
+  mocker.login();
 
-  const session = new APISession('https://fake.api');
-  const login = await session.login('secret-id', 'wrong-password');
+  const badSession = new APISession('https://fake.api');
+  const login = await badSession.login('secret-id', 'wrong-password');
+
   expect(login).toBeFalsy();
 });
 
 test('getAll() supports pagination', async () => {
-  nock('https://fake.api')
-    .get('/api/')
-    .basicAuth({ user: 'secret-id', pass: 'secret-password' })
-    .reply(200)
-    .get('/api/things/')
-    .basicAuth({ user: 'secret-id', pass: 'secret-password' })
-    .reply(200, {
-      count: 3,
-      next: 'https://fake.api/api/things/?page=2',
-      previous: null,
-      results: [{ one: 1 }],
-    })
-    .get('/api/things/')
-    .basicAuth({ user: 'secret-id', pass: 'secret-password' })
-    .query({ page: 2 })
-    .reply(200, {
-      count: 3,
-      next: 'https://fake.api/api/things/?page=3',
-      previous: 'https://fake.api/api/things/?page=1',
-      results: [{ two: 2 }],
-    })
-    .get('/api/things/')
-    .basicAuth({ user: 'secret-id', pass: 'secret-password' })
-    .query({ page: 3 })
-    .reply(200, {
-      count: 3,
-      next: null,
-      previous: 'https://fake.api/api/things/?page=2',
-      results: [{ three: 3 }],
-    });
-
-  const session = new APISession('https://fake.api');
-  await session.login('secret-id', 'secret-password');
+  mocker.login().replyWithPaginatedThings();
+  const session = await newSession();
 
   const result = [];
   // eslint-disable-next-line no-restricted-syntax
   for await (const r of session.getAll('/api/things/')) {
     result.push(r);
   }
-  expect(result.length).toBe(3);
+
   expect(result).toEqual([{ one: 1 }, { two: 2 }, { three: 3 }]);
+  expect(mocker.scope.isDone()).toBeTruthy();
 });
 
 test('list obeys limit', async () => {
-  nock('https://fake.api')
-    .get('/api/')
-    .basicAuth({ user: 'secret-id', pass: 'secret-password' })
-    .reply(200)
-    .get('/api/things/')
-    .basicAuth({ user: 'secret-id', pass: 'secret-password' })
-    .reply(200, {
-      count: 3,
-      next: 'https://fake.api/api/things/?page=2',
-      previous: null,
-      results: [{ one: 1 }],
-    })
-    .get('/api/things/')
-    .basicAuth({ user: 'secret-id', pass: 'secret-password' })
-    .query({ page: 2 })
-    .reply(200, {
-      count: 3,
-      next: 'https://fake.api/api/things/?page=3',
-      previous: 'https://fake.api/api/things/?page=1',
-      results: [{ two: 2 }],
-    });
-
-  const scope = nock('https://fake.api')
+  mocker.login().addThingsPageOne().addThingsPageTwo();
+  const scopeUnused = nock('https://fake.api')
     .get('/api/things/')
     .basicAuth({ user: 'secret-id', pass: 'secret-password' })
     .query({ page: 3 })
@@ -110,85 +147,113 @@ test('list obeys limit', async () => {
       results: [{ three: 3 }],
     });
 
-  const session = new APISession('https://fake.api');
-  await session.login('secret-id', 'secret-password');
-
+  const session = await newSession();
   const result = await session.list('/api/things/', 2);
 
   expect(result).toEqual([{ one: 1 }, { two: 2 }]);
-  expect(scope.isDone()).toBeFalsy();
+  expect(scopeUnused.isDone()).toBeFalsy();
+  expect(mocker.scope.isDone()).toBeTruthy();
 });
 
+test('list without limit gets everything', async () => {
+  mocker.login().replyWithPaginatedThings();
+
+  const session = await newSession();
+  const result = await session.list('/api/things/');
+
+  expect(result).toEqual([{ one: 1 }, { two: 2 }, { three: 3 }]);
+  expect(mocker.scope.isDone()).toBeTruthy();
+});
 
 test('get by id works ok', async () => {
-  const scope = nock('https://fake.api')
-    .get('/api/')
-    .basicAuth({ user: 'secret-id', pass: 'secret-password' })
-    .reply(200)
-    .get('/api/things/666/')
-    .basicAuth({ user: 'secret-id', pass: 'secret-password' })
-    .reply(200, { id: 666, one: 1 });
+  mocker.login().replyToGetThing(200, { id: 666, one: 1 });
 
-  const session = new APISession('https://fake.api');
-  await session.login('secret-id', 'secret-password');
-
+  const session = await newSession();
   const result = await session.get('/api/things/', 666);
 
   expect(result).toEqual({ id: 666, one: 1 });
-  expect(scope.isDone()).toBeTruthy();
+  expect(mocker.scope.isDone()).toBeTruthy();
 });
 
 
 test('get handles error', async () => {
-  const scope = nock('https://fake.api')
-    .get('/api/')
-    .basicAuth({ user: 'secret-id', pass: 'secret-password' })
-    .reply(200)
-    .get('/api/things/666/')
-    .basicAuth({ user: 'secret-id', pass: 'secret-password' })
-    .reply(404);
+  mocker.login().replyToGetThing(404);
 
-  const session = new APISession('https://fake.api');
-  await session.login('secret-id', 'secret-password');
-
+  const session = await newSession();
   await expect(session.get('/api/things/', 666))
     .rejects
     .toEqual(new RequestError(404, 'Request failed with status code 404'));
-  expect(scope.isDone()).toBeTruthy();
+  expect(mocker.scope.isDone()).toBeTruthy();
 });
 
 test('post returns map when ok', async () => {
-  const scope = nock('https://fake.api')
-    .get('/api/')
-    .basicAuth({ user: 'secret-id', pass: 'secret-password' })
-    .reply(200)
-    .post('/api/things/', { foo: 'bar' })
-    .basicAuth({ user: 'secret-id', pass: 'secret-password' })
-    .reply(200, { id: 666, foo: 'bar' });
+  mocker.login().replyToPostThings(200, { id: 666, foo: 'bar' });
 
-  const session = new APISession('https://fake.api');
-  await session.login('secret-id', 'secret-password');
-
+  const session = await newSession();
   const result = await session.post('/api/things/', { foo: 'bar' });
 
   expect(result).toEqual({ id: 666, foo: 'bar' });
-  expect(scope.isDone()).toBeTruthy();
+  expect(mocker.scope.isDone()).toBeTruthy();
 });
 
 test('post handles error ', async () => {
-  const scope = nock('https://fake.api')
-    .get('/api/')
-    .basicAuth({ user: 'secret-id', pass: 'secret-password' })
-    .reply(200)
-    .post('/api/things/', { foo: 'bar' })
-    .basicAuth({ user: 'secret-id', pass: 'secret-password' })
-    .reply(400, [{ code: 'wrong_foo', detail: 'Foo cannot be Bar', field: 'foo' }]);
+  mocker
+    .login()
+    .replyToPostThings(400, [
+      { code: 'wrong_foo', detail: 'Foo cannot be Bar', field: 'foo' },
+    ]);
 
-  const session = new APISession('https://fake.api');
-  await session.login('secret-id', 'secret-password');
-
+  const session = await newSession();
   await expect(session.post('/api/things/', { foo: 'bar' }))
     .rejects
     .toEqual(new RequestError(400, 'Request failed with status code 400'));
-  expect(scope.isDone()).toBeTruthy();
+  expect(mocker.scope.isDone()).toBeTruthy();
+});
+
+test('patch returns map when ok', async () => {
+  mocker.login();
+  mocker.scope
+    .patch('/api/things/', { foo: 'bar' })
+    .basicAuth({ user: 'secret-id', pass: 'secret-password' })
+    .reply(200, { id: 666, foo: 'bar' });
+
+  const session = await newSession();
+  const result = await session.patch('/api/things/', { foo: 'bar' });
+
+  expect(result).toEqual({ id: 666, foo: 'bar' });
+  expect(mocker.scope.isDone()).toBeTruthy();
+});
+
+test('put returns map when ok', async () => {
+  mocker.login();
+  mocker.scope
+    .put('/api/things/666/', { foo: 'bar' })
+    .basicAuth({ user: 'secret-id', pass: 'secret-password' })
+    .reply(200, { id: 666, foo: 'bar' });
+
+  const session = await newSession();
+  const result = await session.put('/api/things/', 666, { foo: 'bar' });
+
+  expect(result).toEqual({ id: 666, foo: 'bar' });
+  expect(mocker.scope.isDone()).toBeTruthy();
+});
+
+test('delete returns true when ok', async () => {
+  mocker.login().replyToDeleteThings(204);
+
+  const session = await newSession();
+  const result = await session.delete('/api/things/', 666);
+
+  expect(result).toBeTruthy();
+  expect(mocker.scope.isDone()).toBeTruthy();
+});
+
+test('delete returns false when not ok', async () => {
+  mocker.login().replyToDeleteThings(404);
+
+  const session = await newSession();
+  const result = await session.delete('/api/things/', 666);
+
+  expect(result).toBeFalsy();
+  expect(mocker.scope.isDone()).toBeTruthy();
 });
