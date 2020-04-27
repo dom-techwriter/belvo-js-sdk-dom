@@ -1,24 +1,10 @@
 import nock from 'nock';
-import APISession from './http';
-import RequestError from './exceptions';
+import { APIMocker, newSession } from './fixtures';
+import APISession from '../src/http';
+import RequestError from '../src/exceptions';
 
 
-class Mocker {
-  constructor(url) {
-    this.scope = nock(url, {
-      reqheaders: {
-        'user-agent': (headerValue) => headerValue.includes('belvo-js'),
-      },
-    });
-  }
-
-  login() {
-    this.scope.get('/api/')
-      .basicAuth({ user: 'secret-id', pass: 'secret-password' })
-      .reply(200);
-    return this;
-  }
-
+class Mocker extends APIMocker {
   addThingsPageOne() {
     this.scope
       .get('/api/things/')
@@ -91,13 +77,6 @@ class Mocker {
 }
 
 const mocker = new Mocker('https://fake.api');
-
-const newSession = async () => {
-  const apiSession = new APISession('https://fake.api');
-  await apiSession.login('secret-id', 'secret-password');
-  return apiSession;
-};
-
 
 beforeEach(async () => {
   nock.cleanAll();
