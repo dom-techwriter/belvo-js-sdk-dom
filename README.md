@@ -4,7 +4,7 @@
     <a href="https://coveralls.io/github/belvo-finance/belvo-js"><img alt="Coveralls github" src="https://img.shields.io/coveralls/github/belvo-finance/belvo-js?style=for-the-badge"></a>
     <a href="https://codeclimate.com/github/belvo-finance/belvo-js"><img alt="CodeClimate maintainability" src="https://img.shields.io/codeclimate/maintainability/belvo-finance/belvo-js?style=for-the-badge"></a>
 </p>
-<p align="center"><a href="https://developers.belvo.co">Developers portal</a> | <a href="https://belvo-finance.github.io/belvo-js">Documentation</a></p>
+<p align="center"><a href="https://developers.belvo.co">Developers portal</a> | <a href="https://belvo-finance.github.io/belvo-js/index.html">Documentation</a></p>
 
 
 ## Contributing
