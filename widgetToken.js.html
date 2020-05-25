@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>owners.js - Documentation</title>
+    <title>widgetToken.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">owners.js</h1>
+    <h1 class="page-title">widgetToken.js</h1>
     
 
     
@@ -42,35 +42,32 @@
             <pre class="prettyprint source linenums"><code>import Resource from './resources';
 
 /**
- * An Owner represents the person who has access to a Link and
- * is the owner of all the Accounts inside the Link.
- *
+ * A WidgetToken provides access and refresh keys to allow users to
+ * initialize and embed our Connect Widget into their own apps.
  * @extends Resource
  */
-class Owner extends Resource {
-  #endpoint = 'api/owners/'
+class WidgetToken extends Resource {
+  #endpoint = 'api/token/'
 
   /**
-   * Retrieve owner information from a specific link.
+   * Request a new token
    * @async
-   * @param {string} link - UUID4 representation of a link Id.
-   * @param {object} options - Optional parameters (token, encryptionKey, saveData)
-   * @returns {object} - Response
+   * @returns {object} Response
    * @throws {RequestError}
    */
-  async retrieve(link, options = {}) {
-    const { token, encryptionKey, saveData } = options;
-    const result = await this.session.post(this.#endpoint, {
-      link,
-      token,
-      encryption_key: encryptionKey,
-      save_data: saveData,
-    });
+  async create() {
+    const result = await this.session.post(
+      this.#endpoint, {
+        id: this.session.keyId,
+        password: this.session.keyPassword,
+        scopes: 'read_institutions,write_links,read_links,delete_links',
+      },
+    );
     return result;
   }
 }
 
-export default Owner;
+export default WidgetToken;
 </code></pre>
         </article>
     </section>
