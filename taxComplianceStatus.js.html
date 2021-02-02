@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>owners.js - Documentation</title>
+    <title>taxComplianceStatus.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">owners.js</h1>
+    <h1 class="page-title">taxComplianceStatus.js</h1>
     
 
     
@@ -42,35 +42,37 @@
             <pre class="prettyprint source linenums"><code>import Resource from './resources';
 
 /**
- * An Owner represents the person who has access to a Link and
- * is the owner of all the Accounts inside the Link.
+ * Retrieve tax compliance status information from a specific fiscal link.
  *
  * @extends Resource
  */
-class Owner extends Resource {
-  #endpoint = 'api/owners/'
+class TaxComplianceStatus extends Resource {
+  #endpoint = 'api/tax-compliance-status/'
 
   /**
-   * Retrieve owner information from a specific link.
+   * Retrieve tax compliance status information from a specific fiscal link.
+   *
    * @async
    * @param {string} link - UUID4 representation of a link Id.
-   * @param {object} options - Optional parameters (token, encryptionKey, saveData)
-   * @returns {object} - Response
+   * @param {object} options - Optional parameters ( encryptionKey, saveData, attachPDF)
+   * @returns {object} Response
    * @throws {RequestError}
    */
   async retrieve(link, options = {}) {
-    const { token, encryptionKey, saveData } = options;
+    const {
+      encryptionKey, saveData, attachPDF,
+    } = options;
     const result = await this.session.post(this.#endpoint, {
       link,
-      token,
       encryption_key: encryptionKey,
       save_data: saveData,
+      attach_pdf: attachPDF,
     });
     return result;
   }
 }
 
-export default Owner;
+export default TaxComplianceStatus;
 </code></pre>
         </article>
     </section>
