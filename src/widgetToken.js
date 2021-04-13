@@ -18,13 +18,15 @@ class WidgetToken extends Resource {
   async create(options = {}) {
     let { scopes } = options;
     const { link } = options;
-    scopes = scopes || 'read_institutions,write_links,read_links,delete_links';
+    const { widget } = options;
+    scopes = scopes || 'read_institutions,write_links,read_links';
     const result = await this.session.post(
       this.#endpoint, {
         id: this.session.keyId,
         password: this.session.keyPassword,
         link_id: link,
         scopes,
+        widget,
       },
     );
     return result;
