@@ -158,6 +158,290 @@
     
 
     
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<div class="section-members">
+<h4 class="name" id="MONTHLY"><span class="type-signature">(constant) </span>MONTHLY<span class="type-signature"> :string</span></h4>
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="taxReturns.js.html">taxReturns.js</a>, <a href="taxReturns.js.html#line21">line 21</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><code>string</code></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name" id="MONTHLY"><span class="type-signature">(constant) </span>MONTHLY<span class="type-signature"> :string</span></h4>
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="taxReturns.js.html">taxReturns.js</a>, <a href="taxReturns.js.html#line21">line 21</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><code>string</code></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name" id="YEARLY"><span class="type-signature">(constant) </span>YEARLY<span class="type-signature"> :string</span></h4>
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="taxReturns.js.html">taxReturns.js</a>, <a href="taxReturns.js.html#line15">line 15</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><code>string</code></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name" id="YEARLY"><span class="type-signature">(constant) </span>YEARLY<span class="type-signature"> :string</span></h4>
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="taxReturns.js.html">taxReturns.js</a>, <a href="taxReturns.js.html#line15">line 15</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><code>string</code></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</div>
+
+        
+    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -1044,7 +1328,7 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
 
     
 
-    <h4 class="name" id="retrieve"><span class="type-signature">(async) </span>retrieve<span class="signature">(link, yearFrom, yearTo, options)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    <h4 class="name" id="retrieve"><span class="type-signature">(async) </span>retrieve<span class="signature">(link, yearDateFrom, yearDateTo, options)</span><span class="type-signature"> &rarr; {object}</span></h4>
 
     
 
@@ -1087,7 +1371,7 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="taxReturns.js.html">taxReturns.js</a>, <a href="taxReturns.js.html#line22">line 22</a>
+        <a href="taxReturns.js.html">taxReturns.js</a>, <a href="taxReturns.js.html#line34">line 34</a>
     </li></ul></dd>
     
 
@@ -1157,7 +1441,7 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
 
         <tr>
             
-                <td class="name"><code>yearFrom</code></td>
+                <td class="name"><code>yearDateFrom</code></td>
             
 
             <td class="type">
@@ -1174,7 +1458,7 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
             
 
             <td class="description last">
-                <p>Required year from, format is YYYY-MM-DD</p>
+                <p>Required year or date from, format is YYYY-MM-DD</p>
                 
             </td>
         </tr>
@@ -1183,7 +1467,7 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
 
         <tr>
             
-                <td class="name"><code>yearTo</code></td>
+                <td class="name"><code>yearDateTo</code></td>
             
 
             <td class="type">
@@ -1200,7 +1484,7 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
             
 
             <td class="description last">
-                <p>Required year to, format is YYYY-MM-DD.</p>
+                <p>Required year or date to, format is YYYY-MM-DD.</p>
                 
             </td>
         </tr>
@@ -1300,7 +1584,7 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
 
     
 
-    <h4 class="name" id="retrieve"><span class="type-signature">(async) </span>retrieve<span class="signature">(link, yearFrom, yearTo, options)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    <h4 class="name" id="retrieve"><span class="type-signature">(async) </span>retrieve<span class="signature">(link, yearDateFrom, yearDateTo, options)</span><span class="type-signature"> &rarr; {object}</span></h4>
 
     
 
@@ -1343,7 +1627,7 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="taxReturns.js.html">taxReturns.js</a>, <a href="taxReturns.js.html#line22">line 22</a>
+        <a href="taxReturns.js.html">taxReturns.js</a>, <a href="taxReturns.js.html#line34">line 34</a>
     </li></ul></dd>
     
 
@@ -1413,7 +1697,7 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
 
         <tr>
             
-                <td class="name"><code>yearFrom</code></td>
+                <td class="name"><code>yearDateFrom</code></td>
             
 
             <td class="type">
@@ -1430,7 +1714,7 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
             
 
             <td class="description last">
-                <p>Required year from, format is YYYY-MM-DD</p>
+                <p>Required year or date from, format is YYYY-MM-DD</p>
                 
             </td>
         </tr>
@@ -1439,7 +1723,7 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
 
         <tr>
             
-                <td class="name"><code>yearTo</code></td>
+                <td class="name"><code>yearDateTo</code></td>
             
 
             <td class="type">
@@ -1456,7 +1740,7 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
             
 
             <td class="description last">
-                <p>Required year to, format is YYYY-MM-DD.</p>
+                <p>Required year or date to, format is YYYY-MM-DD.</p>
                 
             </td>
         </tr>
@@ -1687,6 +1971,290 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
     
 
     
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<div class="section-members">
+<h4 class="name" id="MONTHLY"><span class="type-signature">(constant) </span>MONTHLY<span class="type-signature"> :string</span></h4>
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="taxReturns.js.html">taxReturns.js</a>, <a href="taxReturns.js.html#line21">line 21</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><code>string</code></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name" id="MONTHLY"><span class="type-signature">(constant) </span>MONTHLY<span class="type-signature"> :string</span></h4>
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="taxReturns.js.html">taxReturns.js</a>, <a href="taxReturns.js.html#line21">line 21</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><code>string</code></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name" id="YEARLY"><span class="type-signature">(constant) </span>YEARLY<span class="type-signature"> :string</span></h4>
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="taxReturns.js.html">taxReturns.js</a>, <a href="taxReturns.js.html#line15">line 15</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><code>string</code></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name" id="YEARLY"><span class="type-signature">(constant) </span>YEARLY<span class="type-signature"> :string</span></h4>
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="taxReturns.js.html">taxReturns.js</a>, <a href="taxReturns.js.html#line15">line 15</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><code>string</code></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</div>
+
+        
+    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -2573,7 +3141,7 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
 
     
 
-    <h4 class="name" id="retrieve"><span class="type-signature">(async) </span>retrieve<span class="signature">(link, yearFrom, yearTo, options)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    <h4 class="name" id="retrieve"><span class="type-signature">(async) </span>retrieve<span class="signature">(link, yearDateFrom, yearDateTo, options)</span><span class="type-signature"> &rarr; {object}</span></h4>
 
     
 
@@ -2616,7 +3184,7 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="taxReturns.js.html">taxReturns.js</a>, <a href="taxReturns.js.html#line22">line 22</a>
+        <a href="taxReturns.js.html">taxReturns.js</a>, <a href="taxReturns.js.html#line34">line 34</a>
     </li></ul></dd>
     
 
@@ -2686,7 +3254,7 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
 
         <tr>
             
-                <td class="name"><code>yearFrom</code></td>
+                <td class="name"><code>yearDateFrom</code></td>
             
 
             <td class="type">
@@ -2703,7 +3271,7 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
             
 
             <td class="description last">
-                <p>Required year from, format is YYYY-MM-DD</p>
+                <p>Required year or date from, format is YYYY-MM-DD</p>
                 
             </td>
         </tr>
@@ -2712,7 +3280,7 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
 
         <tr>
             
-                <td class="name"><code>yearTo</code></td>
+                <td class="name"><code>yearDateTo</code></td>
             
 
             <td class="type">
@@ -2729,7 +3297,7 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
             
 
             <td class="description last">
-                <p>Required year to, format is YYYY-MM-DD.</p>
+                <p>Required year or date to, format is YYYY-MM-DD.</p>
                 
             </td>
         </tr>
@@ -2829,7 +3397,7 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
 
     
 
-    <h4 class="name" id="retrieve"><span class="type-signature">(async) </span>retrieve<span class="signature">(link, yearFrom, yearTo, options)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    <h4 class="name" id="retrieve"><span class="type-signature">(async) </span>retrieve<span class="signature">(link, yearDateFrom, yearDateTo, options)</span><span class="type-signature"> &rarr; {object}</span></h4>
 
     
 
@@ -2872,7 +3440,7 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="taxReturns.js.html">taxReturns.js</a>, <a href="taxReturns.js.html#line22">line 22</a>
+        <a href="taxReturns.js.html">taxReturns.js</a>, <a href="taxReturns.js.html#line34">line 34</a>
     </li></ul></dd>
     
 
@@ -2942,7 +3510,7 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
 
         <tr>
             
-                <td class="name"><code>yearFrom</code></td>
+                <td class="name"><code>yearDateFrom</code></td>
             
 
             <td class="type">
@@ -2959,7 +3527,7 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
             
 
             <td class="description last">
-                <p>Required year from, format is YYYY-MM-DD</p>
+                <p>Required year or date from, format is YYYY-MM-DD</p>
                 
             </td>
         </tr>
@@ -2968,7 +3536,7 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
 
         <tr>
             
-                <td class="name"><code>yearTo</code></td>
+                <td class="name"><code>yearDateTo</code></td>
             
 
             <td class="type">
@@ -2985,7 +3553,7 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
             
 
             <td class="description last">
-                <p>Required year to, format is YYYY-MM-DD.</p>
+                <p>Required year or date to, format is YYYY-MM-DD.</p>
                 
             </td>
         </tr>
@@ -3097,7 +3665,7 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.4</a> on Fri Jun 18 2021 11:13:00 GMT+0000 (Coordinated Universal Time) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.4</a> on Tue Jun 22 2021 11:06:49 GMT+0000 (Coordinated Universal Time) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>
