@@ -44,6 +44,18 @@ class IncomesAPIMocker extends APIMocker {
       .reply(200, incomesResp);
   }
 
+  replyToCreateIncomesWithDates() {
+    this.scope
+      .post('/api/incomes/', {
+        link: linkId,
+        date_from: '2021-01-01',
+        date_to: '2021-01-02',
+        save_data: true,
+      })
+      .basicAuth({ user: 'secret-id', pass: 'secret-password' })
+      .reply(200, incomesResp);
+  }
+
   replyToResumeSession() {
     this.scope
       .patch('/api/incomes/', { session: 'abc123', token: 'my-token', link: linkId })
@@ -76,6 +88,22 @@ test('can retrieve incomes with options', async () => {
   const incomes = new Income(session);
   const options = {
     saveData: false,
+  };
+  const result = await incomes.retrieve(linkId, options);
+
+  expect(result).toEqual(incomesResp);
+  expect(mocker.scope.isDone()).toBeTruthy();
+});
+
+test('can retrieve incomes with dates', async () => {
+  mocker.login().replyToCreateIncomesWithDates();
+
+  const session = await newSession();
+  const incomes = new Income(session);
+  const options = {
+    dateFrom: '2021-01-01',
+    dateTo: '2021-01-02',
+    saveData: true,
   };
   const result = await incomes.retrieve(linkId, options);
 
