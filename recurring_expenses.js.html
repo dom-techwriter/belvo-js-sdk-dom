@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>incomes.js - Documentation</title>
+    <title>recurring_expenses.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">incomes.js</h1>
+    <h1 class="page-title">recurring_expenses.js</h1>
     
 
     
@@ -42,36 +42,35 @@
             <pre class="prettyprint source linenums"><code>import Resource from './resources';
 
 /**
- * An Income contains a resume of monthly income Transaction in a Link.
+ * A Recurring Expense contains a summary of yearly recurring expenses Transactions in a Link
  * @extends Resource
  */
-class Income extends Resource {
-  #endpoint = 'api/incomes/'
+
+class RecurringExpense extends Resource {
+  #endpoint = 'api/recurring-expenses/' // eslint-disable-line no-use-before-define
 
   /**
-   * Retrieve income information from a specific banking link.
+   * Retrieve recurring expenses information from a specific banking link.
    *
    * @async
    * @param {string} link - UUID4 representation of a link Id.
-   * @param {object} options - Optional parameters (saveData, dateFrom, dateTo)
+   * @param {object} options - Optional parameters (saveData)
    * @returns {object} Response
    * @throws {RequestError}
    */
   async retrieve(link, options = {}) {
     const {
-      saveData, dateFrom, dateTo,
+      saveData,
     } = options;
     const result = await this.session.post(this.#endpoint, {
       link,
       save_data: saveData,
-      date_from: dateFrom,
-      date_to: dateTo,
     });
     return result;
   }
 }
 
-export default Income;
+export default RecurringExpense;
 </code></pre>
         </article>
     </section>

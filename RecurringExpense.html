@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Statement - Documentation</title>
+    <title>RecurringExpense - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Statement</h1>
+    <h1 class="page-title">RecurringExpense</h1>
     
 
     
@@ -42,10 +42,10 @@
 <header>
     
         <h2>
-        Statement
+        RecurringExpense
         </h2>
         
-            <div class="class-description"><p>A Statement contains a resume of monthly Transactions inside an Account.</p></div>
+            <div class="class-description"><p>A Recurring Expense contains a summary of yearly recurring expenses Transactions in a Link</p></div>
         
     
 </header>
@@ -60,7 +60,7 @@
     <h2>Constructor</h2>
     
 
-    <h4 class="name" id="Statement"><span class="type-signature"></span>new Statement<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="RecurringExpense"><span class="type-signature"></span>new RecurringExpense<span class="signature">()</span><span class="type-signature"></span></h4>
 
     
 
@@ -99,7 +99,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="statements.js.html">statements.js</a>, <a href="statements.js.html#line7">line 7</a>
+        <a href="recurring_expenses.js.html">recurring_expenses.js</a>, <a href="recurring_expenses.js.html#line8">line 8</a>
     </li></ul></dd>
     
 
@@ -1044,14 +1044,14 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
 
     
 
-    <h4 class="name" id="retrieve"><span class="type-signature">(async) </span>retrieve<span class="signature">(link, account, year, month, options)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    <h4 class="name" id="retrieve"><span class="type-signature">(async) </span>retrieve<span class="signature">(link, options)</span><span class="type-signature"> &rarr; {object}</span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Retrieve statements information from a specific banking link.</p>
+    <p>Retrieve recurring expenses information from a specific banking link.</p>
 </div>
 
 
@@ -1087,7 +1087,7 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="statements.js.html">statements.js</a>, <a href="statements.js.html#line22">line 22</a>
+        <a href="recurring_expenses.js.html">recurring_expenses.js</a>, <a href="recurring_expenses.js.html#line20">line 20</a>
     </li></ul></dd>
     
 
@@ -1157,84 +1157,6 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
 
         <tr>
             
-                <td class="name"><code>account</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>string</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>UUID4 representation of an account Id.</p>
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>year</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>number</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>The year you want to retrieve.</p>
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>month</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>number</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>The month you want to retrieve.</p>
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
                 <td class="name"><code>options</code></td>
             
 
@@ -1252,7 +1174,7 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
             
 
             <td class="description last">
-                <p>Optional parameters (token, saveData, attachPDF)</p>
+                <p>Optional parameters (saveData)</p>
                 
             </td>
         </tr>
@@ -1326,14 +1248,14 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
 
     
 
-    <h4 class="name" id="retrieve"><span class="type-signature">(async) </span>retrieve<span class="signature">(link, account, year, month, options)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    <h4 class="name" id="retrieve"><span class="type-signature">(async) </span>retrieve<span class="signature">(link, options)</span><span class="type-signature"> &rarr; {object}</span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Retrieve statements information from a specific banking link.</p>
+    <p>Retrieve recurring expenses information from a specific banking link.</p>
 </div>
 
 
@@ -1369,7 +1291,7 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="statements.js.html">statements.js</a>, <a href="statements.js.html#line22">line 22</a>
+        <a href="recurring_expenses.js.html">recurring_expenses.js</a>, <a href="recurring_expenses.js.html#line20">line 20</a>
     </li></ul></dd>
     
 
@@ -1439,84 +1361,6 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
 
         <tr>
             
-                <td class="name"><code>account</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>string</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>UUID4 representation of an account Id.</p>
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>year</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>number</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>The year you want to retrieve.</p>
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>month</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>number</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>The month you want to retrieve.</p>
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
                 <td class="name"><code>options</code></td>
             
 
@@ -1534,7 +1378,7 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
             
 
             <td class="description last">
-                <p>Optional parameters (token, saveData, attachPDF)</p>
+                <p>Optional parameters (saveData)</p>
                 
             </td>
         </tr>
@@ -1623,10 +1467,10 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
 <header>
     
         <h2>
-        Statement
+        RecurringExpense
         </h2>
         
-            <div class="class-description"><p>A Statement contains a resume of monthly Transactions inside an Account.</p></div>
+            <div class="class-description"><p>A Recurring Expense contains a summary of yearly recurring expenses Transactions in a Link</p></div>
         
     
 </header>
@@ -1641,7 +1485,7 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
     <h2>Constructor</h2>
     
 
-    <h4 class="name" id="Statement"><span class="type-signature"></span>new Statement<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="RecurringExpense"><span class="type-signature"></span>new RecurringExpense<span class="signature">()</span><span class="type-signature"></span></h4>
 
     
 
@@ -1680,7 +1524,7 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="statements.js.html">statements.js</a>, <a href="statements.js.html#line7">line 7</a>
+        <a href="recurring_expenses.js.html">recurring_expenses.js</a>, <a href="recurring_expenses.js.html#line8">line 8</a>
     </li></ul></dd>
     
 
@@ -2625,14 +2469,14 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
 
     
 
-    <h4 class="name" id="retrieve"><span class="type-signature">(async) </span>retrieve<span class="signature">(link, account, year, month, options)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    <h4 class="name" id="retrieve"><span class="type-signature">(async) </span>retrieve<span class="signature">(link, options)</span><span class="type-signature"> &rarr; {object}</span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Retrieve statements information from a specific banking link.</p>
+    <p>Retrieve recurring expenses information from a specific banking link.</p>
 </div>
 
 
@@ -2668,7 +2512,7 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="statements.js.html">statements.js</a>, <a href="statements.js.html#line22">line 22</a>
+        <a href="recurring_expenses.js.html">recurring_expenses.js</a>, <a href="recurring_expenses.js.html#line20">line 20</a>
     </li></ul></dd>
     
 
@@ -2738,84 +2582,6 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
 
         <tr>
             
-                <td class="name"><code>account</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>string</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>UUID4 representation of an account Id.</p>
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>year</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>number</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>The year you want to retrieve.</p>
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>month</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>number</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>The month you want to retrieve.</p>
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
                 <td class="name"><code>options</code></td>
             
 
@@ -2833,7 +2599,7 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
             
 
             <td class="description last">
-                <p>Optional parameters (token, saveData, attachPDF)</p>
+                <p>Optional parameters (saveData)</p>
                 
             </td>
         </tr>
@@ -2907,14 +2673,14 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
 
     
 
-    <h4 class="name" id="retrieve"><span class="type-signature">(async) </span>retrieve<span class="signature">(link, account, year, month, options)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    <h4 class="name" id="retrieve"><span class="type-signature">(async) </span>retrieve<span class="signature">(link, options)</span><span class="type-signature"> &rarr; {object}</span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Retrieve statements information from a specific banking link.</p>
+    <p>Retrieve recurring expenses information from a specific banking link.</p>
 </div>
 
 
@@ -2950,7 +2716,7 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="statements.js.html">statements.js</a>, <a href="statements.js.html#line22">line 22</a>
+        <a href="recurring_expenses.js.html">recurring_expenses.js</a>, <a href="recurring_expenses.js.html#line20">line 20</a>
     </li></ul></dd>
     
 
@@ -3020,84 +2786,6 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
 
         <tr>
             
-                <td class="name"><code>account</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>string</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>UUID4 representation of an account Id.</p>
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>year</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>number</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>The year you want to retrieve.</p>
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>month</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>number</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>The month you want to retrieve.</p>
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
                 <td class="name"><code>options</code></td>
             
 
@@ -3115,7 +2803,7 @@ Use this function to resume sessions that returned HTTP 428 status code.</p>
             
 
             <td class="description last">
-                <p>Optional parameters (token, saveData, attachPDF)</p>
+                <p>Optional parameters (saveData)</p>
                 
             </td>
         </tr>
