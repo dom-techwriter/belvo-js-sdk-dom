@@ -7,6 +7,7 @@
 </p>
 
 ## 📕 Documentation
+
 How to use `belvo-js`: https://belvo-finance.github.io/belvo-js/
 
 If you want to check the full documentation about Belvo API: https://docs.belvo.com
