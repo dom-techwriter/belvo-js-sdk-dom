@@ -1,0 +1,70 @@
+version: 2.1
+
+jobs:
+  test:
+    parameters:
+      version:
+        type: string
+    docker:
+      - image: circleci/node:<< parameters.version >>
+    steps:
+      - checkout
+      - run:
+          name: Install deps
+          command: npm install
+      - run:
+          name: Run tests
+          command: |
+            npm run lint
+            npm run test
+      - run:
+          name: Run build
+          command: npm run build
+  deploy-to-npm:
+    docker:
+      - image: circleci/node:12
+    steps:
+      - checkout
+      - run:
+          name: Install deps
+          command: npm install
+      - run:
+          name: Run build
+          command: npm run build
+      - run:
+          name: Auth With NPM
+          command: echo "//registry.npmjs.org/:_authToken=$API_KEY" > .npmrc
+      - run:
+          name: Publish to NPM
+          command: npm publish
+
+workflows:
+  build-test-deploy:
+    jobs:
+      - test:
+          name: "Test Node 10"
+          version: "10"
+          filters:
+            tags:
+              only: /v.*/
+          context:
+            - shared
+      - test:
+          name: "Test Node 12"
+          version: "12"
+          filters:
+            tags:
+              only: /v.*/
+          context:
+            - shared
+      - deploy-to-npm:
+          requires:
+            - "Test Node 10"
+            - "Test Node 12"
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v.*/
+          context:
+            - shared
