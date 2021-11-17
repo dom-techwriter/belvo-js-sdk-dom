@@ -136,12 +136,13 @@ async function registerLinkAndRetrieveAccounts () {
 After checking out the repo, run `npm install` to install dependencies. Then, run `npm test` to run the tests.
 
 To release a new version:
+- Create a new branch from master.
 - Use `npm version major|minor|patch` to bump a new version.
 - Create a new pull request for the new version.
 - Once the new version is merged in `master`, create a `tag` matching the new version.
 
 ### Linting
-Make sure to run `npm run lint`. Otherwise the build will break. 
+Make sure to run `npm run lint`. Otherwise the build will break.
 
 ## Contributing
 
@@ -151,7 +152,7 @@ If you wish to submit a pull request, please be sure check the items on this lis
 - [ ] Tests related to the changed code were executed
 - [ ] The source code has been coded following [the OWASP security best practices](https://owasp.org/www-pdf-archive/OWASP_SCP_Quick_Reference_Guide_v2.pdf).
 - [ ] Commit message properly labeled
-- [ ] There is a ticket associated to each PR. 
+- [ ] There is a ticket associated to each PR.
 
 
 ## Code of Conduct

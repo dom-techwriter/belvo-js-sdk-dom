@@ -63,7 +63,8 @@ workflows:
             - "Test Node 12"
           filters:
             branches:
-              ignore: /.*/
+              only:
+                - master
             tags:
               only: /^v.*/
           context:
