@@ -25,26 +25,18 @@ jobs:
       - image: circleci/node:12
     steps:
       - checkout
-      - when:
-          condition:
-            and:
-              - equal: [ master, << pipeline.git.branch >> ]
-              - matches:
-                  pattern: "^v.*"
-                  value: << pipeline.git.tag >>
-          steps:
-            - run:
-                name: Install deps
-                command: npm install
-            - run:
-                name: Run build
-                command: npm run build
-            - run:
-                name: Auth With NPM
-                command: echo "//registry.npmjs.org/:_authToken=$API_KEY" > .npmrc
-            - run:
-                name: Publish to NPM
-                command: npm publish
+      - run:
+          name: Install deps
+          command: npm install
+      - run:
+          name: Run build
+          command: npm run build
+      - run:
+          name: Auth With NPM
+          command: echo "//registry.npmjs.org/:_authToken=$API_KEY" > .npmrc
+      - run:
+          name: Publish to NPM
+          command: npm publish
 
 workflows:
   build-test-deploy:
@@ -71,7 +63,8 @@ workflows:
             - "Test Node 12"
           filters:
             branches:
-              only:
-                - master
+              ignore: /.*/
+            tags:
+              only: /^v.*/
           context:
             - shared
