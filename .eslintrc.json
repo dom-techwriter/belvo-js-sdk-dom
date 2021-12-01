@@ -11,10 +11,16 @@
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
     },
-    "parser": "babel-eslint",
+    "parser": "@babel/eslint-parser",
     "parserOptions": {
-        "ecmaVersion": 2018,
-        "sourceType": "module"
+        "ecmaVersion": 2020,
+        "sourceType": "module",
+        "babelOptions": {
+            "plugins": [
+              "@babel/plugin-proposal-class-properties",
+              "@babel/plugin-proposal-private-methods"
+            ]
+        }
     },
     "rules": {
     }
