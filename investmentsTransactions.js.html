@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>owners.js - Documentation</title>
+    <title>investmentsTransactions.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">owners.js</h1>
+    <h1 class="page-title">investmentsTransactions.js</h1>
     
 
     
@@ -39,37 +39,48 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import Resource from './resources';
+            <pre class="prettyprint source linenums"><code>import moment from 'moment';
+import Resource from './resources';
 
 /**
- * An Owner represents the person who has access to a Link and
- * is the owner of all the Accounts inside the Link.
- *
+ * An InvestmentsTransaction gets the existing transactions for an instrument
  * @extends Resource
  */
-class Owner extends Resource {
-  #endpoint = 'api/owners/'
+class InvestmentsTransaction extends Resource {
+  #endpoint = 'investments/transactions/'
 
   /**
-   * Retrieve owner information from a specific link.
+   * Retrieve investments transactions from an existing link.
    * @async
-   * @param {string} link - UUID4 representation of a link Id.
-   * @param {object} options - Optional parameters (token, saveData)
-   * @returns {object} - Response
+   * @param {string} link - UUID4 representation of a Link Id.
+   * @param {string} dateFrom - Required date from, format is YYYY-MM-DD.
+   * @param {object} options - Optional parameters (dateTo, token, saveData, account)
+   * @returns {object} Response
    * @throws {RequestError}
    */
-  async retrieve(link, options = {}) {
-    const { token, saveData } = options;
+  async retrieve(link, dateFrom, options = {}) {
+    const {
+      token, saveData, account,
+    } = options;
+    let {
+      dateTo,
+    } = options;
+    if (!dateTo) {
+      dateTo = moment().format('YYYY-MM-DD');
+    }
     const result = await this.session.post(this.#endpoint, {
       link,
       token,
+      date_from: dateFrom,
+      date_to: dateTo,
+      account,
       save_data: saveData,
     });
     return result;
   }
 }
 
-export default Owner;
+export default InvestmentsTransaction;
 </code></pre>
         </article>
     </section>

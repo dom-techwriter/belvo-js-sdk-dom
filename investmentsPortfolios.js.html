@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>owners.js - Documentation</title>
+    <title>investmentsPortfolios.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">owners.js</h1>
+    <h1 class="page-title">investmentsPortfolios.js</h1>
     
 
     
@@ -42,20 +42,19 @@
             <pre class="prettyprint source linenums"><code>import Resource from './resources';
 
 /**
- * An Owner represents the person who has access to a Link and
- * is the owner of all the Accounts inside the Link.
- *
+ * An InvestmentsPortfolio is a comprehensive view of your user's current
+ * investment holdings
  * @extends Resource
  */
-class Owner extends Resource {
-  #endpoint = 'api/owners/'
+class InvestmentsPortfolio extends Resource {
+  #endpoint = 'investments/portfolios/'
 
   /**
-   * Retrieve owner information from a specific link.
+   * Retrieve investments portfolios from an existing link
    * @async
-   * @param {string} link - UUID4 representation of a link Id.
+   * @param {string} link UUID4 representation of a Link Id.
    * @param {object} options - Optional parameters (token, saveData)
-   * @returns {object} - Response
+   * @return {object} Response
    * @throws {RequestError}
    */
   async retrieve(link, options = {}) {
@@ -69,7 +68,7 @@ class Owner extends Resource {
   }
 }
 
-export default Owner;
+export default InvestmentsPortfolio;
 </code></pre>
         </article>
     </section>
