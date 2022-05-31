@@ -15,10 +15,9 @@ jobs:
       - name: Build
         uses: andstor/jsdoc-action@v1.2.1
         with:
-          source_dir: ./src
-          recurse: true
-          output_dir: ./out
+          # source_dir: ./src
           config_file: jsdoc.json
+          output_dir: ./docs
           template: minami
           front_page: README.md
 
@@ -26,4 +25,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./out
+          publish_dir: ./docs
