@@ -9,6 +9,9 @@
 ## 📕 Documentation
 How to use `belvo-js`: https://belvo-finance.github.io/belvo-js/
 
+
+Small test
+
 If you want to check the full documentation about Belvo API: https://docs.belvo.com
 
 Or if you want to more information about:
